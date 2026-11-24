@@ -1,8 +1,11 @@
-JonathanPrueba34@
-RodrigoPrueba12@
-AdminPrueba@45
-Pedropiedras@56
-JosePrueba@45
+Jonathan@correo.cl = JonathanPrueba34@
+Rodrigo@correo.cl = RodrigoPrueba12@
+admin@correo.cl = AdminPrueba@45
+Pedro.Piedras@gmail.com = Pedropiedras@56
+Jose@bodega.com = JosePrueba@45
 
 
-todos los cargados = Bodega#2026
+el resto (fueron creados por Claude para llenar la base de datos) = Bodega#2026
+
+Windows 10 en adelante, 8 de ram y Intel I 3 de 10th, tecnologías Django, Node/vite y Django-Rest_Framework.
+solo requiere utilizar npm install en front end y en caso de que falle realizar Makemigrations y migrate en Back end y cambiar las configuraciones en settings.py para la base de datos.
