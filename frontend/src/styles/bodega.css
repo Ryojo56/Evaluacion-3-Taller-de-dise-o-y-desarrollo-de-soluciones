@@ -1,0 +1,744 @@
+/* =========================================================
+   BODEGA · estilos compartidos (se suman a Bootstrap 5)
+   Versión adaptada para React (se importa en src/main.jsx)
+   ========================================================= */
+
+/* ---------- Variables y base ---------- */
+:root {
+  --accent: #f26522;     /* botones principales */
+  --accent-d: #d9541a;   /* accent al pasar el cursor */
+  --role: #0d8bd1;       /* insignia de rol (y botón de login) */
+  --ink: #111827;        /* color de texto */
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* [CoreUI] El layout (menú lateral, encabezado, contenido) ahora lo dibujan los componentes
+   de CoreUI: src/components/layout/. Aquí solo quedan estilos propios de las páginas. */
+
+.logo {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border: 1px solid #6b7280;
+  border-radius: .5rem;
+  background: #374151;
+}
+
+.badge-role {
+  background: var(--role);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  font-weight: 600;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #1f2937;
+  color: #fff;
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+/* ---------- Componentes ---------- */
+.card {
+  border: 0;
+  border-radius: 1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
+}
+
+/* [UX] Toque más cómodo en tablets/celulares de bodega (guantes) */
+@media (pointer: coarse) {
+  .btn, .form-control, .form-select { min-height: 44px; }
+}
+
+.stat { transition: transform .15s; }
+.stat:hover { transform: translateY(-3px); }
+
+.btn { border-radius: .6rem; }
+
+/* [React] En Bootstrap 5.3 los colores de un botón se definen con variables.
+   Así el botón se ve bien también al hacer clic (active) y cuando está
+   deshabilitado (disabled), que React usa en varios formularios. */
+.btn-accent {
+  --cui-btn-color: #fff;
+  --cui-btn-bg: var(--accent);
+  --cui-btn-border-color: var(--accent);
+  --cui-btn-hover-color: #fff;
+  --cui-btn-hover-bg: var(--accent-d);
+  --cui-btn-hover-border-color: var(--accent-d);
+  --cui-btn-active-color: #fff;
+  --cui-btn-active-bg: var(--accent-d);
+  --cui-btn-active-border-color: var(--accent-d);
+  --cui-btn-disabled-color: #fff;
+  --cui-btn-disabled-bg: var(--accent);
+  --cui-btn-disabled-border-color: var(--accent);
+  --cui-btn-focus-shadow-rgb: 242, 101, 34;
+  font-weight: 600;
+}
+
+/* Botón del login (en el mockup era azul: #0d8bd1) */
+.btn-login {
+  --cui-btn-color: #fff;
+  --cui-btn-bg: var(--role);
+  --cui-btn-border-color: var(--role);
+  --cui-btn-hover-color: #fff;
+  --cui-btn-hover-bg: #0a74ae;
+  --cui-btn-hover-border-color: #0a74ae;
+  --cui-btn-active-color: #fff;
+  --cui-btn-active-bg: #0a74ae;
+  --cui-btn-active-border-color: #0a74ae;
+  --cui-btn-disabled-color: #fff;
+  --cui-btn-disabled-bg: var(--role);
+  --cui-btn-disabled-border-color: var(--role);
+}
+
+/* [React] casillas e interruptores (ej. "Cuenta activa") con el color de la marca */
+.form-check-input:checked {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+.form-check-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 .2rem rgba(242, 101, 34, .2);
+}
+
+.form-control,
+.form-select {
+  border-radius: .6rem;
+  padding: .65rem .85rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 .2rem rgba(242, 101, 34, .2);
+}
+
+/* [React] los campos con error (is-invalid) mantienen el borde rojo al enfocarlos */
+.form-control.is-invalid:focus,
+.form-select.is-invalid:focus {
+  border-color: var(--cui-form-invalid-border-color);
+  box-shadow: 0 0 0 .2rem rgba(220, 53, 69, .2);
+}
+
+/* Códigos SKU y fechas en tipografía monoespaciada */
+.sku {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: .85rem;
+  color: #6b7280;
+  white-space: nowrap;   /* [React] que "HRM-0001" no se parta en dos líneas */
+}
+
+/* ---------- Tablas ---------- */
+.table thead th {
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: #6b7280;
+  background: #f9fafb;
+  white-space: nowrap;
+}
+
+.table td { vertical-align: middle; }
+
+/* [React] Tablas simples (sin DataTables) dentro de .dt-card */
+.dt-card .table { margin: 0; }
+
+.dt-card .table th,
+.dt-card .table td { padding: .85rem 1rem; }
+
+.dt-card .table thead th { border-bottom: 1px solid #e5e7eb; }
+
+.dt-card .table tbody tr:last-child td { border-bottom: 0; }
+
+/* Acciones de las tablas: "Editar" (<Link>) y "Editar / Eliminar" (<button class="btn btn-link">) */
+.dt-card a:not(.btn),
+.dt-card .btn-link {
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--accent-d);
+}
+.dt-card a:not(.btn):hover,
+.dt-card .btn-link:hover { text-decoration: underline; }
+.dt-card .btn-link.link-danger { color: var(--cui-danger) !important; }
+
+/* [React] Acciones de la tabla de usuarios en dos líneas (Editar · Nueva clave / Desactivar · Eliminar) */
+.acciones-usuario {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: .2rem .9rem;
+  max-width: 190px;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+/* ---------- Modales (components/Modal.jsx) ---------- */
+.modal-react .modal-content {
+  border: 0;
+  border-radius: 1rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, .2);
+}
+.modal-react .modal-header { border-bottom: 1px solid #e5e7eb; padding: 1rem 1.25rem; }
+.modal-react .modal-body { padding: 1.25rem; }
+.modal-react .modal-footer { border-top: 0; padding: 0 1.25rem 1.25rem; gap: .5rem; }
+.modal-react .modal-footer > * { margin: 0; }
+.modal-react .modal-dialog { animation: modal-aparecer .15s ease-out; }
+.modal-backdrop.show { opacity: .45; animation: fondo-aparecer .15s ease-out; }
+
+@keyframes modal-aparecer {
+  from { opacity: 0; transform: translateY(-12px) scale(.98); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes fondo-aparecer { from { opacity: 0; } to { opacity: .45; } }
+
+/* Ícono redondo de los avisos (✓ / !) */
+.icono-aviso {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  font-weight: 700;
+}
+
+/* ---------- Notificaciones (components/Notificaciones.jsx) ---------- */
+.notif { position: relative; }
+
+.notif-panel {
+  position: absolute;
+  top: calc(100% + .5rem);
+  right: 0;
+  width: 380px;
+  max-width: calc(100vw - 2rem);
+  z-index: 1040;               /* sobre el contenido, bajo los modales */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .15);
+  animation: modal-aparecer .12s ease-out;
+}
+
+.notif-cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: .85rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.notif-lista { max-height: 60vh; overflow-y: auto; }
+
+.notif-grupo { padding: .75rem 1rem; }
+.notif-grupo + .notif-grupo { border-top: 1px solid #f1f2f4; }
+
+.notif-punto {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.notif-ver {
+  color: var(--accent-d);
+  font-weight: 500;
+  text-decoration: none;
+}
+.notif-ver:hover { text-decoration: underline; }
+
+/* ---------- Login ---------- */
+.login-side {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+/* ---------- Reportes ---------- */
+/* Pestañas para elegir el reporte */
+.reporte-tabs { gap: .5rem; }
+.reporte-tabs .nav-link {
+  background: #fff;
+  color: #374151;
+  font-weight: 500;
+  border-radius: .6rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+}
+.reporte-tabs .nav-link.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ---------- DataTables 2 (tema Bootstrap 5) · todas las tablas ---------- */
+:is(.reporte-card, .tabla-datos) div.dt-container { font-size: .9rem; }
+
+/* Si la tabla es más ancha que la tarjeta, se desplaza hacia el lado */
+:is(.reporte-card, .tabla-datos) .dt-layout-table > div { overflow-x: auto; }
+
+:is(.reporte-card, .tabla-datos) table.dataTable {
+  margin: .5rem 0 !important;
+  border-collapse: collapse !important;
+}
+
+:is(.reporte-card, .tabla-datos) table.dataTable thead th {
+  border-bottom: 1px solid #e5e7eb;
+  cursor: pointer;
+}
+
+/* Botones Copiar / Excel / CSV / PDF / Columnas / Imprimir */
+:is(.reporte-card, .tabla-datos) .dt-buttons .btn {
+  --cui-btn-bg: #fff;
+  --cui-btn-color: #374151;
+  --cui-btn-border-color: #d1d5db;
+  --cui-btn-hover-bg: #f3f4f6;
+  --cui-btn-hover-color: #111;
+  --cui-btn-hover-border-color: #d1d5db;
+  --cui-btn-active-bg: #e5e7eb;
+  --cui-btn-active-color: #111;
+  --cui-btn-active-border-color: #d1d5db;
+  font-size: .85rem;
+  font-weight: 500;
+}
+
+:is(.reporte-card, .tabla-datos) .dt-search input { border-radius: .5rem; padding: .35rem .6rem; }
+:is(.reporte-card, .tabla-datos) .dt-length select { border-radius: .5rem; padding: .35rem 2rem .35rem .6rem; }
+
+:is(.reporte-card, .tabla-datos) .dt-info { color: #6b7280; font-size: .85rem; }
+
+/* Paginación (del bodega.css original) */
+:is(.reporte-card, .tabla-datos) .page-link {
+  color: var(--accent-d);
+  border-radius: .5rem !important;
+  margin: 0 .1rem;
+}
+
+:is(.reporte-card, .tabla-datos) .page-item.active .page-link {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+:is(.reporte-card, .tabla-datos) .page-link:focus { box-shadow: 0 0 0 .2rem rgba(242, 101, 34, .2); }
+
+.kpi {
+  background: #fff;
+  border-radius: .9rem;
+  padding: .8rem 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .07);
+  height: 100%;
+}
+.kpi-titulo { font-size: .78rem; color: #6b7280; }
+.kpi-valor { font-size: 1.45rem; font-weight: 700; line-height: 1.2; }
+
+.barra-ocupacion { height: .5rem; border-radius: 1rem; background: #e5e7eb; overflow: hidden; }
+.barra-ocupacion > div { height: 100%; border-radius: 1rem; }
+
+.filtros-card { background: #fff; border-radius: 1rem; padding: 1rem; box-shadow: 0 1px 4px rgba(0, 0, 0, .08); }
+.filtros-card .form-label { font-size: .78rem; color: #6b7280; margin-bottom: .25rem; }
+.filtros-card .form-control,
+.filtros-card .form-select { padding: .45rem .7rem; font-size: .9rem; }
+.filtro-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .2rem .6rem;
+  border-radius: 1rem;
+  background: #fff1e9;
+  color: var(--accent-d);
+  font-size: .8rem;
+  font-weight: 500;
+}
+
+.pills-filtro { display: flex; flex-wrap: wrap; gap: .4rem; }
+.pills-filtro .btn {
+  --cui-btn-padding-y: .3rem;
+  --cui-btn-padding-x: .8rem;
+  --cui-btn-font-size: .85rem;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  color: #374151;
+  font-weight: 500;
+}
+.pills-filtro .btn.active { background: #1f2937; border-color: #1f2937; color: #fff; }
+.pills-filtro .btn .badge { font-weight: 600; }
+
+.avatar-rol-admin { background: #7c3aed; }
+.avatar-rol-bodeguero { background: #0d8bd1; }
+.avatar-rol-trabajador { background: #4b5563; }
+
+.menu-acciones { position: relative; display: inline-block; }
+.menu-acciones-lista {
+  position: absolute;
+  right: 0;
+  top: calc(100% + .25rem);
+  min-width: 190px;
+  z-index: 1030;
+  background: #fff;
+  border-radius: .7rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .15);
+  padding: .35rem;
+  animation: modal-aparecer .1s ease-out;
+}
+.menu-acciones-lista button,
+.menu-acciones-lista a {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: none;
+  padding: .45rem .7rem;
+  border-radius: .45rem;
+  color: #374151 !important;
+  font-size: .9rem;
+  text-decoration: none !important;
+}
+.menu-acciones-lista button:hover,
+.menu-acciones-lista a:hover { background: #f3f4f6; }
+.menu-acciones-lista .peligro { color: var(--cui-danger) !important; }
+.menu-acciones-lista button:disabled { color: #9ca3af !important; background: none; cursor: not-allowed; }
+
+@media (max-width: 991.98px) {
+  .reporte-tabs { flex-wrap: nowrap; overflow-x: auto; padding-bottom: .25rem; }
+  .reporte-tabs .nav-link { white-space: nowrap; }
+}
+
+@media (max-width: 767.98px) {
+  h1.h2, h1.h3 { font-size: 1.35rem; }
+
+  .tabla-movil thead { display: none; }
+  .tabla-movil,
+  .tabla-movil tbody,
+  .tabla-movil tr,
+  .tabla-movil td { display: block; width: 100%; }
+  .tabla-movil tr {
+    padding: .65rem .9rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .dt-card .tabla-movil td,
+  .tabla-movil td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: .3rem 0;
+    border: 0;
+    text-align: right;
+  }
+  .tabla-movil td[data-label]::before {
+    content: attr(data-label);
+    flex: none;
+    font-size: .72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: #9ca3af;
+    text-align: left;
+  }
+  .tabla-movil td.celda-titulo { justify-content: flex-start; text-align: left; font-size: 1rem; }
+  .tabla-movil td.celda-titulo::before { display: none; }
+  .tabla-movil td.text-end { justify-content: flex-end; }
+  .tabla-movil td.text-end[data-label] { justify-content: space-between; }
+  .tabla-movil td[colspan] { justify-content: center; text-align: center; }
+  .tabla-movil td[colspan]::before { display: none; }
+
+  .acciones-usuario { max-width: none; }
+
+  .boton-movil-ancho { width: 100%; }
+
+  :is(.reporte-card, .tabla-datos) div.dt-container .row > div { justify-content: center !important; text-align: center; }
+  :is(.reporte-card, .tabla-datos) .dt-buttons { flex-wrap: wrap; justify-content: center; }
+}
+
+.bg-purple-subtle { background-color: #ede9fe !important; }
+.text-purple-emphasis { color: #5b21b6 !important; }
+
+.form-select { padding-right: 2.25rem; }
+
+@media (max-width: 767.98px) {
+  .tabla-movil td[data-label]::before { font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif; }
+}
+
+.avatar-rol-rrhh { background: #0f766e; }
+.bg-teal-subtle { background-color: #ccfbf1 !important; }
+.text-teal-emphasis { color: #115e59 !important; }
+
+.codigo-barras { display: block; max-width: 100%; height: auto; }
+.codigo-barras.tamano-real { max-width: none; }
+
+.lista-unidades {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: .4rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.unidad-opcion {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .5rem .7rem;
+  border: 1px solid #e5e7eb;
+  border-radius: .6rem;
+  cursor: pointer;
+}
+.unidad-opcion.marcada { border-color: var(--accent); background: #fff1e9; }
+.unidad-opcion .form-check-input { margin: 0; }
+
+.etiquetas-impresion { display: none; }
+
+@media print {
+  @page { margin: 10mm; }
+  body { background: #fff; }
+  .sidebar, .header, .footer, .no-imprimir, .notif-panel { display: none !important; }
+  .wrapper { padding: 0 !important; }
+  .etiquetas-impresion {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4mm;
+  }
+  .etiqueta {
+    break-inside: avoid;
+    border: 1px dashed #9ca3af;
+    border-radius: 2mm;
+    padding: 3mm;
+    text-align: center;
+  }
+  .etiqueta .codigo-barras { display: block; margin: 1mm auto; max-width: 100%; height: auto; }
+  .etiqueta-categoria { font-size: 7pt; color: #6b7280; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .etiqueta-nombre { font-size: 9pt; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .etiqueta-pie { font-size: 7pt; color: #4b5563; }
+}
+
+
+/* =========================================================
+   [Colores] Paleta más viva para filtros, botones y tablas.
+   Va al final para tener prioridad sobre los estilos de arriba.
+   ========================================================= */
+
+/* Botones de "crear" (+ Nueva bodega, + Nuevo usuario, + Registrar ítem...) */
+.btn-crear {
+  --cui-btn-color: #fff;
+  --cui-btn-bg: #16a34a;
+  --cui-btn-border-color: #16a34a;
+  --cui-btn-hover-color: #fff;
+  --cui-btn-hover-bg: #15803d;
+  --cui-btn-hover-border-color: #15803d;
+  --cui-btn-active-color: #fff;
+  --cui-btn-active-bg: #166534;
+  --cui-btn-active-border-color: #166534;
+  --cui-btn-disabled-color: #fff;
+  --cui-btn-disabled-bg: #16a34a;
+  --cui-btn-disabled-border-color: #16a34a;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, .25);
+}
+
+.btn-accent { font-weight: 600; box-shadow: 0 4px 12px rgba(242, 101, 34, .22); }
+
+/* Acciones de las tablas con color propio */
+.dt-card .btn-link:not(.link-danger), .accion-editar { color: #2563eb !important; font-weight: 500; }
+.dt-card .btn-link.link-danger, .accion-eliminar { color: #dc2626 !important; font-weight: 500; }
+
+/* Encabezado de tablas: franja de color de la marca */
+.table thead th {
+  color: #9a3412;
+  background: #fff4ec;
+  border-bottom: 2px solid #fed7aa !important;
+}
+
+/* Tarjeta de filtros: borde y fondo con tono de la marca */
+.filtros-card {
+  background: linear-gradient(135deg, #fff7f2 0%, #f0f7ff 100%);
+  border: 1px solid #fde2cf;
+  border-left: 4px solid var(--accent);
+}
+.filtros-card .form-label { color: #9a3412; font-weight: 600; }
+.filtros-card .form-control,
+.filtros-card .form-select { background-color: #fff; border-color: #f3d3bd; }
+.filtros-card .form-control:focus,
+.filtros-card .form-select:focus { border-color: var(--accent); box-shadow: 0 0 0 .2rem rgba(242, 101, 34, .18); }
+/* Filtro con un valor elegido: se marca para que se note que está filtrando */
+.filtro-activo,
+.filtros-card .form-select.border-warning {
+  border-color: var(--accent) !important;
+  background-color: #fff1e6 !important;
+  font-weight: 600;
+  color: #9a3412;
+}
+.filtro-chip { background: #ffedd5; color: #9a3412; border: 1px solid #fed7aa; }
+
+/* Pastillas de filtro (Pendientes / Todas / roles...) */
+.pills-filtro .btn {
+  background: #fff;
+  border: 1px solid #fed7aa;
+  color: #9a3412;
+}
+.pills-filtro .btn:hover { background: #fff4ec; }
+.pills-filtro .btn.active {
+  background: linear-gradient(135deg, #f26522, #f59e0b);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(242, 101, 34, .3);
+}
+.pills-filtro .btn.active .badge { background: rgba(255, 255, 255, .25) !important; color: #fff !important; }
+
+/* Pestañas de Reportes y de Mis préstamos */
+.reporte-tabs .nav-link { border: 1px solid #fed7aa; color: #9a3412; }
+.reporte-tabs .nav-link.active,
+.nav-pills .nav-link.active {
+  background: linear-gradient(135deg, #f26522, #f59e0b);
+  color: #fff;
+  border-color: transparent;
+}
+
+/* Indicadores (KPI) con una franja de color según su tono */
+.kpi { border-top: 3px solid #fdba74; }
+.kpi:has(.text-danger-emphasis) { border-top-color: #ef4444; }
+.kpi:has(.text-warning-emphasis) { border-top-color: #f59e0b; }
+.kpi:has(.text-success-emphasis), .kpi:has(.text-success) { border-top-color: #22c55e; }
+.kpi:has(.text-primary-emphasis) { border-top-color: #3b82f6; }
+
+/* =========================================================
+   [Contraste] Modo oscuro opcional: los colores fijos de arriba
+   (fondos claros) se adaptan para que el texto siempre se lea.
+   ========================================================= */
+[data-coreui-theme="dark"] .table thead th { color: #fdba74; background: #2a2f3a; border-bottom-color: #4b5563 !important; }
+[data-coreui-theme="dark"] .filtros-card { background: #232833; border-color: #3a404d; }
+[data-coreui-theme="dark"] .filtros-card .form-label { color: #fdba74; }
+[data-coreui-theme="dark"] .filtros-card .form-control,
+[data-coreui-theme="dark"] .filtros-card .form-select { background-color: #1b1f27; color: #e5e7eb; border-color: #4b5563; }
+[data-coreui-theme="dark"] .filtro-activo,
+[data-coreui-theme="dark"] .filtros-card .form-select.border-warning { background-color: #3b2416 !important; color: #fdba74; }
+[data-coreui-theme="dark"] .pills-filtro .btn,
+[data-coreui-theme="dark"] .reporte-tabs .nav-link:not(.active) { background: #232833; color: #fdba74; border-color: #4b5563; }
+[data-coreui-theme="dark"] .kpi,
+[data-coreui-theme="dark"] .menu-acciones-lista,
+[data-coreui-theme="dark"] .notif-panel,
+[data-coreui-theme="dark"] .unidad-opcion { background: #232833; color: #e5e7eb; }
+[data-coreui-theme="dark"] .kpi-titulo,
+[data-coreui-theme="dark"] .text-secondary { color: #aab3c2 !important; }
+[data-coreui-theme="dark"] .menu-acciones-lista a,
+[data-coreui-theme="dark"] .menu-acciones-lista button { color: #e5e7eb; }
+[data-coreui-theme="dark"] .menu-acciones-lista a:hover { background: #2f3542; }
+[data-coreui-theme="dark"] .filtro-chip { background: #3b2416; color: #fdba74; border-color: #7c2d12; }
+[data-coreui-theme="dark"] .dt-card .btn-link:not(.link-danger) { color: #60a5fa !important; }
+
+
+/* =========================================================
+   [Tablas] Tema de DataTables coherente con la app
+   (.tabla-datos = todas las tablas; .reporte-card = Reportes)
+   ========================================================= */
+.tabla-datos {
+  background: var(--cui-body-bg, #fff);
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
+}
+.tabla-datos table.dataTable > tbody > tr > td { padding: .7rem .75rem; }
+.tabla-compacta table.dataTable > tbody > tr > td { padding: .45rem .6rem; font-size: .9rem; }
+:is(.reporte-card, .tabla-datos) table.dataTable > tbody > tr:hover > * { box-shadow: inset 0 0 0 9999px rgba(242, 101, 34, .05); }
+
+/* Cada botón de exportar con su color (como los íconos de cada formato) */
+:is(.reporte-card, .tabla-datos) .dt-buttons { gap: .35rem; flex-wrap: wrap; }
+:is(.reporte-card, .tabla-datos) .dt-buttons .btn { border-radius: .5rem !important; border-width: 1px; }
+:is(.reporte-card, .tabla-datos) .dt-buttons .buttons-copy { --cui-btn-color: #475569; --cui-btn-border-color: #cbd5e1; }
+:is(.reporte-card, .tabla-datos) .dt-buttons .buttons-excel { --cui-btn-color: #15803d; --cui-btn-border-color: #86efac; --cui-btn-hover-bg: #dcfce7; --cui-btn-hover-color: #166534; }
+:is(.reporte-card, .tabla-datos) .dt-buttons .buttons-csv { --cui-btn-color: #0f766e; --cui-btn-border-color: #99f6e4; --cui-btn-hover-bg: #ccfbf1; --cui-btn-hover-color: #115e59; }
+:is(.reporte-card, .tabla-datos) .dt-buttons .buttons-pdf { --cui-btn-color: #b91c1c; --cui-btn-border-color: #fca5a5; --cui-btn-hover-bg: #fee2e2; --cui-btn-hover-color: #991b1b; }
+:is(.reporte-card, .tabla-datos) .dt-buttons .buttons-print { --cui-btn-color: #1d4ed8; --cui-btn-border-color: #93c5fd; --cui-btn-hover-bg: #dbeafe; --cui-btn-hover-color: #1e40af; }
+:is(.reporte-card, .tabla-datos) .dt-buttons .buttons-colvis { --cui-btn-color: #c2410c; --cui-btn-border-color: #fdba74; --cui-btn-hover-bg: #ffedd5; --cui-btn-hover-color: #9a3412; }
+:is(.reporte-card, .tabla-datos) .dt-search input:focus,
+:is(.reporte-card, .tabla-datos) .dt-length select:focus { border-color: var(--accent); box-shadow: 0 0 0 .2rem rgba(242, 101, 34, .18); }
+:is(.reporte-card, .tabla-datos) .dt-search input { min-width: 220px; }
+
+@media (max-width: 767.98px) {
+  .tabla-datos { padding: .6rem; }
+  .tabla-datos div.dt-container .row > div { justify-content: center !important; text-align: center; }
+  :is(.reporte-card, .tabla-datos) .dt-search input { min-width: 0; width: 100%; }
+}
+
+[data-coreui-theme="dark"] .tabla-datos { background: #232833; }
+
+/* Ocupación (bodegas y espacios) */
+.barra-ocupacion.grande { height: .65rem; }
+
+/* Catálogo del trabajador: tarjetas compactas (4-5 por fila) */
+.tarjeta-item {
+  border: 1px solid #f1e4da;
+  border-top: 3px solid var(--color-estado, #16a34a);
+  transition: transform .12s, box-shadow .12s;
+}
+.tarjeta-item:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0, 0, 0, .1); }
+.tarjeta-item .nombre-item {
+  font-size: .95rem;
+  font-weight: 600;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.4em;
+}
+.chip-ubicacion {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  padding: .1rem .5rem;
+  border-radius: 1rem;
+  font-size: .78rem;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+  white-space: nowrap;
+}
+.chip-ubicacion.area { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
+
+.punto-tipo { display: inline-block; width: .7rem; height: .7rem; border-radius: 50%; }
+.tarjeta-categoria { border-left-width: 4px; }
+.tarjeta-categoria.borde-info { border-left-color: var(--cui-info, #0d8bd1); }
+.tarjeta-categoria.borde-success { border-left-color: var(--cui-success, #16a34a); }
+.tarjeta-categoria.borde-warning { border-left-color: var(--cui-warning, #f59e0b); }
+.lista-subcategorias li { padding: .35rem .5rem; border-top: 1px dashed var(--cui-border-color, #e5e7eb); }
+.chip-bodega {
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;
+  padding: .05rem .45rem;
+  border-radius: 1rem;
+  font-size: .72rem;
+  background: #fff7ed;
+  color: #9a3412;
+  border: 1px solid #fed7aa;
+  white-space: nowrap;
+}
+.chip-bodega.vacia { background: #f3f4f6; color: #6b7280; border-color: #e5e7eb; }
+.prioridad-urgente { color: #dc2626; font-weight: 700; }
+.prioridad-alta { color: #d97706; font-weight: 600; }
+[data-coreui-theme="dark"] .chip-bodega { background: rgba(251, 146, 60, .15); color: #fdba74; border-color: rgba(251, 146, 60, .35); }
+[data-coreui-theme="dark"] .chip-bodega.vacia { background: rgba(255, 255, 255, .06); color: #9ca3af; border-color: rgba(255, 255, 255, .12); }
+
+.avatar.avatar-foto { object-fit: cover; background: var(--cui-secondary-bg, #e5e7eb); padding: 0; }
+.avatar-con-foto img { object-fit: cover; width: 100%; height: 100%; }
+.foto-perfil-grande {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 3px solid var(--cui-border-color, #e5e7eb);
+}
+.foto-perfil-grande.sin-foto {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.acciones-grafico .btn { padding: .1rem .4rem; font-size: .75rem; }
+@media print { .acciones-grafico { display: none !important; } }

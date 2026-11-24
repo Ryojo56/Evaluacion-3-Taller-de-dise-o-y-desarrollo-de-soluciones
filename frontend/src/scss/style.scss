@@ -1,0 +1,171 @@
+// ============================================================================
+// Estilos base: CoreUI 5 (basado en Bootstrap 5.3, así que las clases de
+// Bootstrap que ya usaban las páginas siguen funcionando).
+// Tomado de coreui-free-react-admin-template y adaptado a la bodega.
+// ============================================================================
+@use "@coreui/coreui/scss/coreui" as * with (
+  $enable-deprecation-messages: false,
+  $mobile-breakpoint: md,     // [Menú] fijo y siempre visible desde 768 px (tablet/notebook)
+  $primary: #f26522,          // naranjo de la marca (antes --accent)
+  $info: #0d8bd1,
+);
+@use "@coreui/chartjs/scss/coreui-chartjs";
+
+body {
+  background-color: var(--cui-tertiary-bg);
+}
+
+.wrapper {
+  width: 100%;
+  padding-inline: var(--cui-sidebar-occupy-start, 0) var(--cui-sidebar-occupy-end, 0);
+  will-change: auto;
+  @include transition(padding .15s);
+}
+
+.header > .container-fluid,
+.sidebar-header {
+  min-height: calc(4rem + 1px); // stylelint-disable-line function-disallowed-list
+}
+
+.sidebar-toggler {
+  margin-inline-start: auto;
+}
+
+.sidebar-narrow,
+.sidebar-narrow-unfoldable:not(:hover) {
+  .sidebar-toggler {
+    margin-inline-end: auto;
+  }
+}
+
+.footer {
+  min-height: calc(3rem + 1px); // stylelint-disable-line function-disallowed-list
+}
+
+.simplebar-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+// Logo de la bodega en el menú lateral
+.marca-bodega {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: .5rem;
+  background: var(--cui-primary);
+  color: #fff;
+  font-weight: 700;
+}
+
+// Escáner global del encabezado: ancho cómodo en escritorio, completo en celular
+.escaner-global {
+  width: min(320px, 50vw);
+}
+
+@include media-breakpoint-down(md) {
+  .escaner-global {
+    width: 100%;
+  }
+}
+
+@include color-mode(dark) {
+  body {
+    background-color: var(--cui-dark-bg-subtle);
+  }
+
+  .footer {
+    --cui-footer-bg: var(--cui-body-bg);
+  }
+
+  // Tarjetas y tablas propias que tenían colores fijos claros
+  .card,
+  .filtros-card,
+  .notif-panel,
+  .menu-acciones-lista {
+    background-color: var(--cui-body-bg) !important;
+    color: var(--cui-body-color);
+  }
+
+  .table thead th {
+    background-color: var(--cui-tertiary-bg) !important;
+    color: var(--cui-secondary-color) !important;
+    border-color: var(--cui-border-color) !important;
+  }
+
+  .unidad-opcion,
+  .kpi {
+    background-color: var(--cui-body-bg);
+    color: var(--cui-body-color);
+  }
+}
+
+// [Menú] Grupos desplegables del menú lateral (Inventario, Operaciones, Administración)
+.grupo-menu {
+  list-style: none;
+  margin-top: .35rem;
+}
+
+.grupo-menu-titulo {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  width: 100%;
+  padding: .65rem 1rem;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, .7);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  &:hover { color: #fff; background: rgba(255, 255, 255, .05); }
+  &:focus-visible { outline: 2px solid var(--cui-primary); outline-offset: -2px; }
+}
+
+.grupo-menu-icono { width: 1.1rem; height: 1.1rem; color: var(--cui-primary); }
+
+.grupo-menu-flecha {
+  width: .8rem;
+  height: .8rem;
+  transition: transform .15s;
+  transform: rotate(-90deg);
+}
+.grupo-menu.abierto .grupo-menu-flecha { transform: none; }
+
+.grupo-menu-items {
+  border-inline-start: 2px solid rgba(242, 101, 34, .35);
+  margin-inline-start: 1.45rem;
+  .nav-link { padding-inline-start: .9rem; }
+}
+
+// [Menú] Barra lateral colapsada (solo íconos): los grupos siguen agrupados y se
+// expanden o contraen con un clic en su ícono (la flechita indica el estado)
+.sidebar-narrow {
+  .grupo-menu-titulo {
+    position: relative;
+    justify-content: center;
+    gap: .15rem;
+    padding: .7rem 0;
+    > :not(.grupo-menu-icono):not(.grupo-menu-flecha):not(.badge) { display: none; }
+    .grupo-menu-icono { width: 1.25rem; height: 1.25rem; }
+    .grupo-menu-flecha { width: .6rem; height: .6rem; }
+    .badge {
+      position: absolute;
+      top: .25rem;
+      right: .55rem;
+      padding: .15rem .3rem;
+      font-size: .6rem;
+    }
+  }
+  .grupo-menu.abierto .grupo-menu-items { background: rgba(255, 255, 255, .04); }
+  .grupo-menu { border-top: 1px solid rgba(255, 255, 255, .08); }
+  .grupo-menu-items {
+    margin-inline-start: 0;
+    border-inline-start: 0;
+  }
+  .sidebar-header { justify-content: center; }
+}
